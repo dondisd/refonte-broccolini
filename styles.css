@@ -67,8 +67,9 @@ h1, h2, h3, .display { font-family: 'Bebas Neue', sans-serif; font-weight: 400; 
 .hero-contenu { position: relative; z-index: 2; padding: 0 6vw 9svh; color: var(--blanc); }
 .kicker { font-size: 13px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.85); margin-bottom: 14px; }
 .geant {
-  font-size: clamp(4rem, 12vw, 10.5rem);
+  font-size: clamp(3.1rem, 10.5vw, 10rem);
   line-height: .9; letter-spacing: .01em; text-transform: uppercase;
+  overflow-wrap: anywhere;
 }
 .geant + .lede, .lede { max-width: 30rem; margin-top: 18px; font-size: 17px; color: rgba(255,255,255,.88); }
 .cta-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 26px; }
