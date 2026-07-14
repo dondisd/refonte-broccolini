@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Broccolini | Investir. Développer. Construire.</title>
+  <title>Broccolini | Le pouvoir de réaliser</title>
   <meta name="description" content="75 ans d'immobilier d'exception : Place Banque Nationale, Maison de Radio-Canada, Victoria sur le parc. Investir, développer, construire et gérer, avec un seul partenaire.">
-  <link rel="preload" href="fonts/BebasNeue-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="fonts/Karla-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/Inter-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/InstrumentSerif-400i.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/p-bnc.webp" as="image">
   <link rel="stylesheet" href="fonts/fonts.css">
   <link rel="stylesheet" href="styles.css">
@@ -14,129 +14,160 @@
 <body>
   <div class="progress" aria-hidden="true"></div>
 
-  <header class="nav">
-    <a class="brand" href="#top">BROCCOLINI</a>
-    <nav class="links" aria-label="Navigation principale">
-      <a href="#services">Services</a>
-      <a href="#chiffres">Le groupe</a>
-      <a href="#projets">Projets</a>
-      <a href="#bureaux">Bureaux</a>
-    </nav>
-    <a class="btn-rouge" href="#contact">Discuter d'un projet</a>
-  </header>
+  <!-- Fond fixe de la section métiers (visible seulement là) -->
+  <div class="fixedbg" aria-hidden="true"></div>
 
-  <main id="top">
-    <!-- HERO : leur tour signature plein écran -->
-    <section class="hero">
-      <img class="hero-img" src="assets/p-bnc.webp" alt="Place Banque Nationale, construite par Broccolini" fetchpriority="high">
-      <div class="hero-voile" aria-hidden="true"></div>
-      <div class="hero-contenu">
-        <p class="kicker" data-reveal>Depuis 1949 · Montréal / Toronto / Ottawa</p>
-        <h1 class="geant">Investir.<br>Développer.<br>Construire.</h1>
-        <p class="lede" data-reveal>Des solutions immobilières d'exception, au service de nos
-          communautés. Un seul partenaire, du terrain à la remise des clés.</p>
-        <div class="cta-row" data-reveal>
-          <a class="btn-rouge grand" href="#contact">Discuter d'un projet</a>
-          <a class="btn-ligne" href="#projets">Voir nos réalisations</a>
-        </div>
+  <!-- NAVBAR : pill blanche flottante centrée + hamburger animé -->
+  <nav class="pilnav">
+    <div class="pill">
+      <a class="marque" href="#top">Broccolini.</a>
+      <button class="burger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="menu" hidden>
+      <a href="#metiers">Nos métiers</a>
+      <a href="#galerie">Réalisations</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- SECTION 1 : HERO plein écran, contenu en bas -->
+  <section class="hero" id="top">
+    <img class="hero-img" src="assets/p-bnc.webp" alt="Place Banque Nationale, construite par Broccolini" fetchpriority="high">
+    <div class="hero-voile" aria-hidden="true"></div>
+    <div class="hero-bas">
+      <h1>Le pouvoir<br>de <em class="serif">réaliser</em></h1>
+      <p class="sous-titre">75 ans de solutions immobilières d'exception, du terrain à la remise des clés</p>
+      <div class="cta-bar">
+        <span class="cta-texte">Un terrain, un projet, une ambition. Parlons-en.</span>
+        <span class="cta-texte-court">Un projet? Parlons-en.</span>
+        <a class="cta-blanc" href="#contact">Discuter d'un projet</a>
       </div>
-      <p class="hero-legende" data-reveal>Place Banque Nationale, Montréal</p>
-    </section>
+    </div>
+  </section>
 
-    <!-- Marquee rouge -->
-    <div class="bande" aria-hidden="true">
-      <div class="bande-piste">
-        <span>Investir</span><i>✦</i><span>Développer</span><i>✦</i><span>Construire</span><i>✦</i><span>Gérer</span><i>✦</i><span>75 ans d'excellence</span><i>✦</i>
-        <span>Investir</span><i>✦</i><span>Développer</span><i>✦</i><span>Construire</span><i>✦</i><span>Gérer</span><i>✦</i><span>75 ans d'excellence</span><i>✦</i>
+  <!-- SECTION 2 : béton, coins arrondis qui chevauchent le hero -->
+  <section class="apropos">
+    <div class="apropos-haut">
+      <p data-reveal>Nous investissons, développons, construisons et gérons, avec la discipline
+        d'une entreprise familiale de troisième génération. Un seul partenaire, du début à la fin.</p>
+      <div class="btn-rangée" data-reveal>
+        <a class="pil pil-sombre" href="#contact">
+          <span class="rond"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
+          Nous joindre
+        </a>
+        <a class="pil pil-doux" href="#galerie">
+          <span class="rond"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d0d0d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span>
+          Nos réalisations
+        </a>
       </div>
     </div>
 
-    <!-- SERVICES : 4 rangées numérotées -->
-    <section class="services" id="services">
-      <p class="label" data-reveal>[ Un seul partenaire, quatre métiers ]</p>
-      <ol class="rangées">
-        <li data-reveal>
-          <span class="num">01</span>
-          <h2>Investir</h2>
-          <p>Des capitaux levés et placés dans des occasions immobilières à fort potentiel,
-            avec la discipline d'une entreprise familiale de troisième génération.</p>
-        </li>
-        <li data-reveal>
-          <span class="num">02</span>
-          <h2>Développer</h2>
-          <p>Le bon terrain, le bon projet : nous concevons une solution adaptée à chaque
-            besoin, du campus industriel à la tour de bureaux.</p>
-        </li>
-        <li data-reveal>
-          <span class="num">03</span>
-          <h2>Construire</h2>
-          <p>75 ans de chantiers menés de façon sécuritaire et efficace, pour certains des
-            noms les plus exigeants au pays.</p>
-        </li>
-        <li data-reveal>
-          <span class="num">04</span>
-          <h2>Gérer</h2>
-          <p>Une gestion immobilière haut de gamme, fondée sur la réactivité et la valeur
-            à long terme : plus de 17 millions de pi² sous gestion.</p>
-        </li>
-      </ol>
-    </section>
+    <div class="divise" aria-hidden="true"><i></i><span></span><i></i></div>
 
-    <!-- CHIFFRES : bande noire, compteurs -->
-    <section class="chiffres" id="chiffres">
-      <div class="chiffres-grille">
-        <div data-reveal><span class="compteur" data-cible="75">0</span><span class="unite">ans</span><p>d'excellence, depuis 1949</p></div>
-        <div data-reveal><span class="compteur" data-cible="400">0</span><span class="unite">+</span><p>employé(e)s au Québec et en Ontario</p></div>
-        <div data-reveal><span class="compteur" data-cible="50">0</span><span class="unite">M+ pi²</span><p>construits, dont 17 M+ sous gestion</p></div>
-        <div data-reveal><span class="compteur" data-cible="23">0</span><span class="unite">,6M pi²</span><p>développés ou en développement</p></div>
+    <div class="apropos-bas">
+      <div class="cachet" data-reveal>
+        <svg width="40" height="40" viewBox="0 0 256 256" fill="#0d0d0d" aria-hidden="true"><path d="M0 0h120v120H0zM136 0h120v120H136zM0 136h120v120H0zM136 136h120v56a64 64 0 0 1-64 64h-56z"/></svg>
+        <span>Bâtir<br>Autrement</span>
       </div>
-    </section>
+      <p class="grand-texte" data-reveal>Nous bâtissons les adresses que tout le monde connaît.
+        Mais surtout, nous portons le poids de chaque étape, l'investissement, le développement,
+        la construction et la gestion, pour que nos partenaires puissent se consacrer
+        à ce qui compte vraiment.</p>
+    </div>
+  </section>
 
-    <!-- PROJETS : galerie horizontale de leurs réalisations -->
-    <section class="projets" id="projets">
-      <p class="label" data-reveal>[ Quelques réalisations ]</p>
-      <h2 class="titre-section" data-reveal>Des adresses que<br>tout le monde connaît.</h2>
-      <div class="galerie" data-reveal>
-        <article class="carte"><img src="assets/p-bnc.webp" alt="Place Banque Nationale" loading="lazy"><h3>Place Banque Nationale</h3><p>Bureaux · Montréal</p></article>
-        <article class="carte"><img src="assets/p-vslp.webp" alt="Victoria sur le parc" loading="lazy"><h3>Victoria sur le parc</h3><p>Résidentiel · Montréal</p></article>
-        <article class="carte"><img src="assets/p-radio.webp" alt="Maison de Radio-Canada" loading="lazy"><h3>Maison de Radio-Canada</h3><p>Bureaux · Montréal</p></article>
-        <article class="carte"><img src="assets/p-sherbrooke.webp" alt="Le Sherbrooke" loading="lazy"><h3>Le Sherbrooke</h3><p>Résidentiel · Montréal</p></article>
-        <article class="carte"><img src="assets/p-abb.webp" alt="Campus ABB" loading="lazy"><h3>Campus ABB</h3><p>Industriel · Montréal</p></article>
-        <article class="carte"><img src="assets/p-michelin.webp" alt="Michelin" loading="lazy"><h3>Michelin</h3><p>Industriel</p></article>
-        <article class="carte"><img src="assets/p-amazon.webp" alt="Centre Amazon" loading="lazy"><h3>Amazon</h3><p>Industriel</p></article>
-        <article class="carte"><img src="assets/p-628.webp" alt="628 Saint-Jacques" loading="lazy"><h3>628 Saint-Jacques</h3><p>Résidentiel · Montréal</p></article>
-      </div>
-      <p class="indice" data-reveal>( faites défiler la galerie )</p>
-    </section>
+  <!-- BANDE COMPTEURS (noire) -->
+  <section class="chiffres">
+    <div class="chiffres-grille">
+      <div data-reveal><span class="compteur" data-cible="75">0</span><span class="unite">ans</span><p>d'excellence, depuis 1949</p></div>
+      <div data-reveal><span class="compteur" data-cible="400">0</span><span class="unite">+</span><p>employé(e)s au Québec et en Ontario</p></div>
+      <div data-reveal><span class="compteur" data-cible="50">0</span><span class="unite">M+ pi²</span><p>construits, dont 17 M+ sous gestion</p></div>
+      <div data-reveal><span class="compteur" data-cible="23">0</span><span class="unite">,6M pi²</span><p>développés ou en développement</p></div>
+    </div>
+  </section>
 
-    <!-- BUREAUX -->
-    <section class="bureaux" id="bureaux">
-      <p class="label" data-reveal>[ Trois bureaux ]</p>
-      <div class="bureaux-grille">
-        <div data-reveal><h3>Montréal</h3><p>16766 aut. Transcanadienne, suite 500<br>Kirkland (Québec) H9H 4M7</p><a href="tel:+15147370076">514 737-0076</a></div>
-        <div data-reveal><h3>Toronto</h3><p>2680 Skymark Avenue, suite 800<br>Mississauga (Ontario) L4W 5L6</p><a href="tel:+14162427772">416 242-7772</a></div>
-        <div data-reveal><h3>Ottawa</h3><p>208 Slater St.<br>Ottawa (Ontario) K1P 5H8</p><a href="tel:+15147370076">514 737-0076</a></div>
-      </div>
-    </section>
-
-    <!-- FINALE -->
-    <section class="finale" id="contact">
-      <img class="finale-img" src="assets/p-vslp.webp" alt="" loading="lazy">
-      <div class="finale-voile" aria-hidden="true"></div>
-      <div class="finale-contenu">
-        <h2 class="geant" data-reveal>Le pouvoir<br>de réaliser.</h2>
-        <p class="lede" data-reveal>Un terrain, un projet, une ambition : parlons-en.</p>
-        <div class="cta-row" data-reveal>
-          <a class="btn-rouge grand" href="tel:+15147370076">514 737-0076</a>
-          <a class="btn-ligne" href="mailto:info@broccolini.com">info@broccolini.com</a>
+  <!-- SECTION 3 : fond fixe, colonne sticky + cartes qui glissent -->
+  <section class="metiers" id="metiers">
+    <div class="metiers-grille">
+      <div class="colle">
+        <h2>Quatre métiers qui portent vos projets, du sol au sommet</h2>
+        <div class="nav-cartes" aria-label="Navigation des métiers">
+          <button data-cible="c-investir" class="actif">Investir</button>
+          <button data-cible="c-developper">Développer</button>
+          <button data-cible="c-construire">Construire</button>
+          <button data-cible="c-gerer">Gérer</button>
+        </div>
+        <div class="colle-cta">
+          <p>Un seul partenaire de confiance, du début à la fin.</p>
+          <a class="cta-blanc" href="#contact">Discuter d'un projet</a>
         </div>
       </div>
-    </section>
-  </main>
 
-  <footer class="pied">
-    <p>© 2026 Broccolini. Tous droits réservés.</p>
-    <p>Démonstration de refonte par <a href="https://www.dondisanteme.com" target="_blank" rel="noopener">Dondi Santeme</a>. Non affilié à l'entreprise.</p>
+      <div class="cartes">
+        <article class="carte" id="c-investir">
+          <svg width="40" height="40" viewBox="0 0 256 256" fill="rgba(255,255,255,.85)" aria-hidden="true"><path d="M0 0h120v120H0zM136 0h120v120H136zM0 136h120v120H0zM136 136h120v56a64 64 0 0 1-64 64h-56z"/></svg>
+          <h3>01 · Investir</h3>
+          <img src="assets/p-vslp.webp" alt="Victoria sur le parc" loading="lazy">
+          <p>Des capitaux levés et placés dans des occasions immobilières à fort potentiel,
+            avec la rigueur d'un groupe qui engage son propre nom sur chaque projet.</p>
+        </article>
+        <article class="carte" id="c-developper">
+          <svg width="40" height="40" viewBox="0 0 256 256" fill="rgba(255,255,255,.85)" aria-hidden="true"><path d="M0 0h120v120H0zM136 0h120v120H136zM0 136h120v120H0zM136 136h120v56a64 64 0 0 1-64 64h-56z"/></svg>
+          <h3>02 · Développer</h3>
+          <img src="assets/p-sherbrooke.webp" alt="Le Sherbrooke" loading="lazy">
+          <p>Le bon terrain, le bon projet : nous concevons une solution adaptée à chaque besoin,
+            du campus industriel à la tour résidentielle.</p>
+        </article>
+        <article class="carte" id="c-construire">
+          <svg width="40" height="40" viewBox="0 0 256 256" fill="rgba(255,255,255,.85)" aria-hidden="true"><path d="M0 0h120v120H0zM136 0h120v120H136zM0 136h120v120H0zM136 136h120v56a64 64 0 0 1-64 64h-56z"/></svg>
+          <h3>03 · Construire</h3>
+          <img src="assets/p-abb.webp" alt="Campus ABB" loading="lazy">
+          <p>75 ans de chantiers menés de façon sécuritaire et efficace, pour certains
+            des noms les plus exigeants au pays.</p>
+        </article>
+        <article class="carte" id="c-gerer">
+          <svg width="40" height="40" viewBox="0 0 256 256" fill="rgba(255,255,255,.85)" aria-hidden="true"><path d="M0 0h120v120H0zM136 0h120v120H136zM0 136h120v120H0zM136 136h120v56a64 64 0 0 1-64 64h-56z"/></svg>
+          <h3>04 · Gérer</h3>
+          <img src="assets/p-michelin.webp" alt="Michelin" loading="lazy">
+          <p>Une gestion immobilière haut de gamme, fondée sur la réactivité et la valeur
+            à long terme : plus de 17 millions de pi² sous gestion.</p>
+        </article>
+      </div>
+    </div>
+
+    <!-- Galerie horizontale : les adresses que tout le monde connaît -->
+    <div class="galerie-zone" id="galerie">
+      <h2 data-reveal>Des adresses que tout le monde connaît.</h2>
+      <div class="galerie" data-reveal>
+        <figure><img src="assets/p-bnc.webp" alt="Place Banque Nationale" loading="lazy"><figcaption>Place Banque Nationale</figcaption></figure>
+        <figure><img src="assets/p-radio.webp" alt="Maison de Radio-Canada" loading="lazy"><figcaption>Maison de Radio-Canada</figcaption></figure>
+        <figure><img src="assets/p-vslp.webp" alt="Victoria sur le parc" loading="lazy"><figcaption>Victoria sur le parc</figcaption></figure>
+        <figure><img src="assets/p-sherbrooke.webp" alt="Le Sherbrooke" loading="lazy"><figcaption>Le Sherbrooke</figcaption></figure>
+        <figure><img src="assets/p-amazon.webp" alt="Centre Amazon" loading="lazy"><figcaption>Amazon</figcaption></figure>
+        <figure><img src="assets/p-628.webp" alt="628 Saint-Jacques" loading="lazy"><figcaption>628 Saint-Jacques</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="pied" id="contact">
+    <div class="pied-haut">
+      <div>
+        <h2>Parlons de votre projet.</h2>
+        <a class="cta-blanc grand" href="tel:+15147370076">514 737-0076</a>
+      </div>
+      <div class="pied-bureaux">
+        <div><h3>Montréal</h3><p>16766 aut. Transcanadienne, suite 500, Kirkland (Québec) H9H 4M7</p></div>
+        <div><h3>Toronto</h3><p>2680 Skymark Avenue, suite 800, Mississauga (Ontario) L4W 5L6</p></div>
+        <div><h3>Ottawa</h3><p>208 Slater St., Ottawa (Ontario) K1P 5H8</p></div>
+      </div>
+    </div>
+    <div class="pied-bas">
+      <p>© 2026 Broccolini. Tous droits réservés.</p>
+      <p>Démonstration de refonte par <a href="https://www.dondisanteme.com" target="_blank" rel="noopener">Dondi Santeme</a>. Non affilié à l'entreprise.</p>
+    </div>
   </footer>
 
   <script src="app.js" defer></script>
