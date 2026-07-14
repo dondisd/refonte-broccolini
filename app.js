@@ -62,4 +62,13 @@
   boutons.forEach((b) => b.addEventListener('click', () => {
     document.getElementById(b.dataset.cible)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }));
+
+  /* Formulaire du footer (maquette : aucune donnée transmise) */
+  const form = document.querySelector('.fa-form');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      form.innerHTML = '<p style="font-size:18px;font-weight:600">Demande envoyée ✓</p><p style="color:rgba(255,255,255,.5);font-size:14px;margin-top:8px">L\'équipe vous revient rapidement. (Maquette : aucune donnée transmise.)</p>';
+    });
+  }
 })();
