@@ -194,8 +194,9 @@ body {
 .carte img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 16px; display: block; }
 .carte p { color: rgba(255,255,255,.62); font-weight: 500; font-size: 15px; margin-top: 16px; }
 
-/* Galerie horizontale */
-.galerie-zone { max-width: 1280px; margin: 110px auto 0; color: var(--blanc); }
+/* Galerie horizontale (section transparente sur le fond fixe) */
+.galzone { position: relative; padding: 90px 20px 110px; }
+.galerie-zone { max-width: 1280px; margin: 0 auto; color: var(--blanc); }
 .galerie-zone h2 { font-weight: 400; font-size: clamp(1.8rem, 4vw, 52px); letter-spacing: -.01em; margin-bottom: 30px; }
 .galerie {
   display: flex; gap: 18px; overflow-x: auto;
