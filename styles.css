@@ -299,3 +299,18 @@ h1 { opacity: 1; transform: none; }
   .hero-img { animation: none; }
   .burger span { transition: none; }
 }
+
+/* ── MODE SCROLL-DRIVEN (body.fx : GSAP pilote, les animations CSS se taisent) ── */
+body.fx .hero-img { animation: none; }
+body.fx .s1 { opacity: 1; }
+body.fx .s2, body.fx .s3 { opacity: 0; }
+body.fx .hero { margin-bottom: 0; }
+body.fx .barre-rouge { margin-top: 0; border-radius: 0; }
+/* Galerie : piste libérée pour le défilement piloté (le fallback overflow-x reste sans JS) */
+body.fx .galzone { min-height: 100svh; display: grid; align-content: center; overflow: hidden; }
+body.fx .galerie-zone { max-width: none; }
+body.fx .galerie-zone h2 { max-width: min(92vw, 1240px); }
+body.fx .galerie { overflow: visible; scroll-snap-type: none; width: max-content; padding-bottom: 0; }
+body.fx .galerie figure { flex: 0 0 min(74vw, 420px); }
+/* Text scrub */
+.fx-word { display: inline-block; will-change: transform, opacity; }
