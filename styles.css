@@ -70,20 +70,43 @@ body {
   margin-bottom: -25px;
   display: flex; flex-direction: column; justify-content: flex-end;
 }
-/* Fond ANIMÉ : crossfade de leurs tours + Ken Burns (cycle de 18 s, 3 photos) */
-.hero-img {
-  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-  animation: kenburns 9s ease-in-out infinite alternate;
+/* OBJET-HÉROS : la tour en 8 tranches (chaque tranche montre sa bande de la vraie photo).
+   Sans JS ou en reduced-motion : toutes les tranches sont en place = photo complète. */
+.chantier {
+  position: absolute; inset: 0; display: none;
+  background:
+    repeating-linear-gradient(0deg, rgba(232,17,45,.14) 0 1px, transparent 1px 12.5%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 72px),
+    #101218;
 }
-@keyframes kenburns { from { transform: scale(1); } to { transform: scale(1.08); } }
-.slide { opacity: 0; }
-.s1 { animation: kenburns 9s ease-in-out infinite alternate, fondu 18s linear infinite; }
-.s2 { animation: kenburns 9s ease-in-out infinite alternate, fondu 18s linear infinite 6s; }
-.s3 { animation: kenburns 9s ease-in-out infinite alternate, fondu 18s linear infinite 12s; }
-@keyframes fondu {
-  0% { opacity: 0; } 4% { opacity: 1; } 33.3% { opacity: 1; } 40% { opacity: 0; } 100% { opacity: 0; }
+body.fx .chantier { display: block; }
+.niveau {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: var(--rouge); box-shadow: 0 0 14px rgba(232,17,45,.85);
 }
-.hero-voile { position: absolute; inset: 0; background: rgba(0,0,0,.32); }
+.tour { position: absolute; inset: 0; }
+.tranche {
+  position: absolute; left: 0; right: 0;
+  height: 12.5%; top: calc(var(--i) * 12.5%);
+  overflow: hidden; will-change: transform;
+}
+.tranche img {
+  position: absolute; left: 0; top: 0;
+  width: 100%; height: 800%; object-fit: cover;
+  transform: translateY(calc(var(--i) / 8 * -100%));
+}
+.hero-voile { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.5)); }
+/* HUD de chantier : données soudées à la montée de la tour */
+.hud {
+  position: absolute; top: 100px; z-index: 3;
+  display: flex; flex-direction: column; gap: 1px;
+  background: rgba(13,13,13,.5); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.16); border-radius: 14px;
+  padding: 10px 14px; color: var(--blanc);
+}
+.hud-g { left: 16px; } .hud-d { right: 16px; align-items: flex-end; }
+.hud-num { font-size: 26px; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.hud-lab { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .16em; color: rgba(255,255,255,.62); }
 .hero-bas {
   position: relative; z-index: 2; text-align: center; color: var(--blanc);
   padding: 0 20px 56px;
@@ -300,10 +323,7 @@ h1 { opacity: 1; transform: none; }
   .burger span { transition: none; }
 }
 
-/* ── MODE SCROLL-DRIVEN (body.fx : GSAP pilote, les animations CSS se taisent) ── */
-body.fx .hero-img { animation: none; }
-body.fx .s1 { opacity: 1; }
-body.fx .s2, body.fx .s3 { opacity: 0; }
+/* ── MODE SCROLL-DRIVEN (body.fx : GSAP pilote) ── */
 body.fx .hero { margin-bottom: 0; }
 body.fx .barre-rouge { margin-top: 0; border-radius: 0; }
 /* Galerie : piste libérée pour le défilement piloté (le fallback overflow-x reste sans JS) */

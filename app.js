@@ -34,15 +34,29 @@
     document.body.classList.add('fx');
     ScrollFX.init();
 
-    /* Hero épinglé : le scroll fond leurs trois tours l'une dans l'autre
-       avec une poussée de caméra continue (BNC -> Radio-Canada -> Victoria) */
-    const heroTl = gsap.timeline({
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=160%', scrub: 1, pin: true, anticipatePin: 1 }
+    /* OBJET-HÉROS : la Place Banque Nationale s'assemble étage par étage.
+       Tranches posées du BAS vers le HAUT (comme un chantier), ligne de
+       niveau qui monte, HUD (étages, année) soudé à la même timeline. */
+    const hudEtage = document.querySelector('[data-hud="etage"]');
+    const hudAnnee = document.querySelector('[data-hud="annee"]');
+    const tranches = [...document.querySelectorAll('.tranche')]
+      .sort((a, b) => b.style.getPropertyValue('--i') - a.style.getPropertyValue('--i'));
+
+    const buildTl = gsap.timeline({
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=250%', scrub: 1, pin: true, anticipatePin: 1 },
+      onUpdate: () => {
+        const p = Math.min(1, Math.max(0, (buildTl.progress() - 0.04) / 0.84));
+        if (hudEtage) hudEtage.textContent = String(10 + Math.round(30 * p)).padStart(2, '0');
+        if (hudAnnee) hudAnnee.textContent = String(1949 + Math.round(77 * p));
+      }
     });
-    heroTl
-      .fromTo('.hero-img', { scale: 1 }, { scale: 1.12, ease: 'none', duration: 3 }, 0)
-      .to('.s2', { opacity: 1, ease: 'none', duration: 1 }, 0.35)
-      .to('.s3', { opacity: 1, ease: 'none', duration: 1 }, 1.75);
+    /* Les 2 tranches du bas (fondations) sont déjà posées au chargement : LCP
+       peinte immédiatement. Les 6 étages supérieurs s'assemblent au scroll. */
+    tranches.slice(2).forEach((el, k) => {
+      buildTl.from(el, { y: '-52svh', opacity: 0, ease: 'power2.out', duration: 1 }, 0.3 + k * 0.55);
+    });
+    buildTl.fromTo('.niveau', { bottom: '24.9%' }, { bottom: '99.6%', ease: 'none', duration: 0.3 + 5 * 0.55 + 0.7 }, 0);
+    buildTl.to('.chantier', { opacity: 0, ease: 'none', duration: 0.7 }, '>-0.1');
 
     /* Compteurs pilotés par le scroll (l'ancre VO « numbers count themselves up ») */
     document.querySelectorAll('.compteur').forEach((el) => {

@@ -32,12 +32,23 @@
     </div>
   </nav>
 
-  <!-- HERO : fond animé (crossfade de leurs tours) + boutons évidents -->
+  <!-- HERO OBJET-HÉROS : la Place Banque Nationale s'assemble étage par étage au scroll
+       (leur vraie photo en 8 tranches, ligne de niveau de chantier, HUD soudé à la montée) -->
   <section class="hero" id="top">
-    <img class="hero-img slide s1" src="assets/p-bnc.webp" alt="Place Banque Nationale, construite par Broccolini" fetchpriority="high">
-    <img class="hero-img slide s2" src="assets/p-vslp.webp" alt="" aria-hidden="true" loading="lazy">
-    <img class="hero-img slide s3" src="assets/p-radio.webp" alt="" aria-hidden="true" loading="lazy">
+    <div class="chantier" aria-hidden="true"><span class="niveau"></span></div>
+    <div class="tour" role="img" aria-label="Place Banque Nationale, construite par Broccolini">
+      <div class="tranche" style="--i:0"><img src="assets/p-bnc.webp" alt=""></div>
+      <div class="tranche" style="--i:1"><img src="assets/p-bnc.webp" alt=""></div>
+      <div class="tranche" style="--i:2"><img src="assets/p-bnc.webp" alt=""></div>
+      <div class="tranche" style="--i:3"><img src="assets/p-bnc.webp" alt=""></div>
+      <div class="tranche" style="--i:4"><img src="assets/p-bnc.webp" alt=""></div>
+      <div class="tranche" style="--i:5"><img src="assets/p-bnc.webp" alt=""></div>
+      <div class="tranche" style="--i:6"><img src="assets/p-bnc.webp" alt=""></div>
+      <div class="tranche" style="--i:7"><img src="assets/p-bnc.webp" alt="" fetchpriority="high"></div>
+    </div>
     <div class="hero-voile" aria-hidden="true"></div>
+    <div class="hud hud-g" aria-hidden="true"><span class="hud-num" data-hud="etage">40</span><span class="hud-lab">étages</span></div>
+    <div class="hud hud-d" aria-hidden="true"><span class="hud-num" data-hud="annee">2026</span><span class="hud-lab">depuis 1949</span></div>
     <div class="hero-bas">
       <h1>Le pouvoir<br>de <em class="serif">réaliser</em></h1>
       <p class="sous-titre">75 ans de solutions immobilières d'exception, du terrain à la remise des clés</p>
