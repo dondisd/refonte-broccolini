@@ -34,29 +34,83 @@
     document.body.classList.add('fx');
     ScrollFX.init();
 
-    /* OBJET-HÉROS : la Place Banque Nationale s'assemble étage par étage.
-       Tranches posées du BAS vers le HAUT (comme un chantier), ligne de
-       niveau qui monte, HUD (étages, année) soudé à la même timeline. */
-    const hudEtage = document.querySelector('[data-hud="etage"]');
-    const hudAnnee = document.querySelector('[data-hud="annee"]');
-    const tranches = [...document.querySelectorAll('.tranche')]
-      .sort((a, b) => b.style.getPropertyValue('--i') - a.style.getPropertyValue('--i'));
+    /* ── RIDEAU « monte-charge » : lettres qui s'allument, scan NIV 00->75,
+       ouverture des panneaux, puis les monolithes SORTENT DE TERRE. Skippable. ── */
+    const rideau = document.querySelector('.rideau');
+    const nivEl = document.querySelector('.r-niv');
+    const nivState = { v: 0 };
+    const monolithes = ['.m-l1', '.m-l2', '.m-g', '.m-d', '.m-c'];
 
-    const buildTl = gsap.timeline({
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=250%', scrub: 1, pin: true, anticipatePin: 1 },
-      onUpdate: () => {
-        const p = Math.min(1, Math.max(0, (buildTl.progress() - 0.04) / 0.84));
-        if (hudEtage) hudEtage.textContent = String(10 + Math.round(30 * p)).padStart(2, '0');
-        if (hudAnnee) hudAnnee.textContent = String(1949 + Math.round(77 * p));
-      }
+    gsap.set(monolithes, { yPercent: 118, opacity: 0 });
+    gsap.set('.halo', { opacity: 0, scale: 0.6 });
+    gsap.set(['.hero-bas h1', '.sous-titre', '.hero-boutons', '.hud'], { opacity: 0, y: 26 });
+    gsap.set('.ville', { scale: 1.16, rotationX: 7, transformOrigin: '50% 78%' });
+
+    const ouverture = gsap.timeline();
+    ouverture
+      .to('.r-marque span', { opacity: 1, duration: 0.06, stagger: 0.055, ease: 'none' }, 0.15)
+      .fromTo('.r-scan', { yPercent: 0, opacity: 1 }, {
+        yPercent: () => -innerHeight, opacity: 1, duration: 1.5, ease: 'power1.inOut'
+      }, 0.5)
+      .to(nivState, {
+        v: 75, duration: 1.5, ease: 'power1.inOut',
+        onUpdate: () => { if (nivEl) nivEl.textContent = 'NIV ' + String(Math.round(nivState.v)).padStart(2, '0'); }
+      }, 0.5)
+      .to('.r-scan', { opacity: 0, duration: 0.2 }, 2.0)
+      .to('.r-centre', { opacity: 0, duration: 0.35, ease: 'power1.in' }, 2.05)
+      .to('.r-haut', { yPercent: -102, duration: 0.85, ease: 'expo.inOut' }, 2.3)
+      .to('.r-bas', { yPercent: 102, duration: 0.85, ease: 'expo.inOut' }, 2.3)
+      .set(rideau, { display: 'none' }, 3.2)
+      /* Entrée caméra + la ville sort de terre (chevauche l'ouverture) */
+      .to('.ville', { scale: 1, rotationX: 0, duration: 1.6, ease: 'power2.out' }, 2.35)
+      .to('.halo', { opacity: 1, scale: 1, duration: 1.1, ease: 'power2.out' }, 2.5)
+      .to(monolithes, {
+        yPercent: 0, opacity: 1, duration: 1.05, ease: 'back.out(1.4)', stagger: 0.16
+      }, 2.45)
+      .to('.hero-bas h1', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 3.15)
+      .to('.sous-titre', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 3.35)
+      .to('.hero-boutons', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 3.5)
+      .to('.hud', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 3.55);
+    /* Skip : premier geste = saut à la fin du rite */
+    const skip = () => { if (ouverture.progress() < 1) ouverture.progress(1); retire(); };
+    const retire = () => ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach((e) => removeEventListener(e, skip));
+    ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach((e) => addEventListener(e, skip, { passive: true, once: false }));
+    setTimeout(retire, 4200);
+
+    /* ── PARALLAXE POINTEUR sur 3 couches (+ dérive automatique au repos) ── */
+    const rotY = gsap.quickTo('.ville', 'rotationY', { duration: 0.9, ease: 'power2.out' });
+    const rotX = gsap.quickTo('.ville', 'rotationX', { duration: 0.9, ease: 'power2.out' });
+    const cielX = gsap.quickTo('.ciel', 'x', { duration: 1.2, ease: 'power2.out' });
+    const pousX = gsap.quickTo('.poussiere', 'x', { duration: 0.7, ease: 'power2.out' });
+    const pousY = gsap.quickTo('.poussiere', 'y', { duration: 0.7, ease: 'power2.out' });
+    let derniereSouris = 0;
+    addEventListener('mousemove', (e) => {
+      derniereSouris = performance.now();
+      const nx = (e.clientX / innerWidth) * 2 - 1;
+      const ny = (e.clientY / innerHeight) * 2 - 1;
+      rotY(nx * 7); rotX(-ny * 3.5);
+      cielX(nx * -14); pousX(nx * 26); pousY(ny * 14);
+    }, { passive: true });
+    /* Dérive sinusoïdale quand aucun pointeur (mobile / captures sans souris) */
+    gsap.ticker.add((t) => {
+      if (performance.now() - derniereSouris < 2600) return;
+      rotY(Math.sin(t * 0.45) * 4.5);
+      rotX(Math.cos(t * 0.32) * 1.8);
+      pousX(Math.sin(t * 0.5) * 16);
     });
-    /* Les 2 tranches du bas (fondations) sont déjà posées au chargement : LCP
-       peinte immédiatement. Les 6 étages supérieurs s'assemblent au scroll. */
-    tranches.slice(2).forEach((el, k) => {
-      buildTl.from(el, { y: '-52svh', opacity: 0, ease: 'power2.out', duration: 1 }, 0.3 + k * 0.55);
+
+    /* ── PLONGÉE-CAMÉRA : le scroll entre DANS la tour centrale, la matière
+       fait le raccord vers la barre rouge (loi n°2 du storytelling). ── */
+    const dive = gsap.timeline({
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=160%', scrub: 0.8, pin: true, anticipatePin: 1 }
     });
-    buildTl.fromTo('.niveau', { bottom: '24.9%' }, { bottom: '99.6%', ease: 'none', duration: 0.3 + 5 * 0.55 + 0.7 }, 0);
-    buildTl.to('.chantier', { opacity: 0, ease: 'none', duration: 0.7 }, '>-0.1');
+    dive
+      .to(['.hero-bas', '.hud-g', '.hud-d'], { opacity: 0, y: -40, duration: 0.55, ease: 'power1.in' }, 0)
+      .to('.ville', { scale: 3.1, y: '22svh', transformOrigin: '50% 62%', duration: 2.2, ease: 'power2.in' }, 0.12)
+      .to('.poussiere', { opacity: 0, duration: 0.8 }, 0.3)
+      .to('.ciel', { opacity: 0.4, duration: 1.4 }, 0.8)
+      .to('.hero', { backgroundColor: '#c60e26', duration: 0.9, ease: 'power1.in' }, 1.7)
+      .to('.monde', { opacity: 0, duration: 0.7, ease: 'power1.in' }, 1.75);
 
     /* Compteurs pilotés par le scroll (l'ancre VO « numbers count themselves up ») */
     document.querySelectorAll('.compteur').forEach((el) => {

@@ -8,10 +8,25 @@
   <link rel="preload" href="fonts/Inter-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/InstrumentSerif-400i.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/p-bnc.webp" as="image">
+  <link rel="preload" href="assets/p-radio.webp" as="image">
+  <link rel="preload" href="assets/p-vslp.webp" as="image">
   <link rel="stylesheet" href="fonts/fonts.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- RIDEAU D'OUVERTURE « monte-charge de chantier » : le wordmark s'allume,
+       la ligne de niveau scanne l'écran (NIV 00 -> 75), puis les deux panneaux
+       métalliques s'ouvrent sur le hero. Skippable au premier geste. -->
+  <div class="rideau" aria-hidden="true">
+    <div class="r-pan r-haut"></div>
+    <div class="r-pan r-bas"></div>
+    <div class="r-scan"></div>
+    <div class="r-centre">
+      <p class="r-marque"><span>B</span><span>r</span><span>o</span><span>c</span><span>c</span><span>o</span><span>l</span><span>i</span><span>n</span><span>i</span><span class="r-point">.</span></p>
+      <div class="r-hud"><span class="r-niv">NIV 00</span><span class="r-lab">Montréal · depuis 1949</span></div>
+    </div>
+  </div>
+
   <div class="progress" aria-hidden="true"></div>
 
   <!-- Fond fixe de la section réalisations -->
@@ -32,23 +47,45 @@
     </div>
   </nav>
 
-  <!-- HERO OBJET-HÉROS : la Place Banque Nationale s'assemble étage par étage au scroll
-       (leur vraie photo en 8 tranches, ligne de niveau de chantier, HUD soudé à la montée) -->
+  <!-- HERO « LE CHANTIER DES ICÔNES » : diorama 3D en trois couches.
+       Fond : ciel crépusculaire + brume rouge dérivante. Sujet : trois monolithes
+       (leurs VRAIES tours) qui sortent de terre sur un sol miroir à halo rouge.
+       Avant-plan : poussières lumineuses. Entrée caméra + parallaxe pointeur,
+       puis le scroll PLONGE dans la tour centrale (raccord vers la barre rouge). -->
   <section class="hero" id="top">
-    <div class="chantier" aria-hidden="true"><span class="niveau"></span></div>
-    <div class="tour" role="img" aria-label="Place Banque Nationale, construite par Broccolini">
-      <div class="tranche" style="--i:0"><img src="assets/p-bnc.webp" alt=""></div>
-      <div class="tranche" style="--i:1"><img src="assets/p-bnc.webp" alt=""></div>
-      <div class="tranche" style="--i:2"><img src="assets/p-bnc.webp" alt=""></div>
-      <div class="tranche" style="--i:3"><img src="assets/p-bnc.webp" alt=""></div>
-      <div class="tranche" style="--i:4"><img src="assets/p-bnc.webp" alt=""></div>
-      <div class="tranche" style="--i:5"><img src="assets/p-bnc.webp" alt=""></div>
-      <div class="tranche" style="--i:6"><img src="assets/p-bnc.webp" alt=""></div>
-      <div class="tranche" style="--i:7"><img src="assets/p-bnc.webp" alt="" fetchpriority="high"></div>
+    <div class="ciel" aria-hidden="true">
+      <div class="brume b1"></div>
+      <div class="brume b2"></div>
+      <div class="grain"></div>
+    </div>
+    <div class="monde" aria-hidden="true">
+      <div class="ville">
+        <div class="halo"></div>
+        <figure class="mono m-loin m-l1"><img src="assets/p-sherbrooke.webp" alt=""></figure>
+        <figure class="mono m-loin m-l2"><img src="assets/p-628.webp" alt=""></figure>
+        <figure class="mono m-g">
+          <img src="assets/p-radio.webp" alt="">
+          <span class="reflet" style="background-image:url('assets/p-radio.webp')"></span>
+          <figcaption>Maison de<br>Radio-Canada</figcaption>
+        </figure>
+        <figure class="mono m-d">
+          <img src="assets/p-vslp.webp" alt="">
+          <span class="reflet" style="background-image:url('assets/p-vslp.webp')"></span>
+          <figcaption>Victoria<br>sur le parc</figcaption>
+        </figure>
+        <figure class="mono m-c">
+          <img src="assets/p-bnc.webp" alt="Place Banque Nationale, Maison de Radio-Canada et Victoria sur le parc, construites par Broccolini" fetchpriority="high">
+          <span class="reflet" style="background-image:url('assets/p-bnc.webp')"></span>
+          <figcaption>Place Banque<br>Nationale</figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="poussiere" aria-hidden="true">
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
     </div>
     <div class="hero-voile" aria-hidden="true"></div>
-    <div class="hud hud-g" aria-hidden="true"><span class="hud-num" data-hud="etage">40</span><span class="hud-lab">étages</span></div>
-    <div class="hud hud-d" aria-hidden="true"><span class="hud-num" data-hud="annee">2026</span><span class="hud-lab">depuis 1949</span></div>
+    <div class="hud hud-g" aria-hidden="true"><span class="hud-num">75</span><span class="hud-lab">ans · depuis 1949</span></div>
+    <div class="hud hud-d" aria-hidden="true"><span class="hud-num">50M+</span><span class="hud-lab">pi² construits</span></div>
     <div class="hero-bas">
       <h1>Le pouvoir<br>de <em class="serif">réaliser</em></h1>
       <p class="sous-titre">75 ans de solutions immobilières d'exception, du terrain à la remise des clés</p>

@@ -64,38 +64,159 @@ body {
 }
 .menu a:hover { background: var(--beton); }
 
-/* ── HERO ─────────────────────────────────────────────────────────── */
+/* ── RIDEAU D'OUVERTURE « monte-charge » ──────────────────────────── */
+.rideau { position: fixed; inset: 0; z-index: 100; pointer-events: none; }
+.r-pan {
+  position: absolute; left: 0; right: 0; height: 50.5%;
+  background:
+    repeating-linear-gradient(135deg, rgba(232,17,45,.16) 0 14px, transparent 14px 64px),
+    linear-gradient(180deg, #14161c, #0b0c10);
+  will-change: transform;
+}
+.r-haut { top: 0; border-bottom: 1px solid rgba(232,17,45,.5); }
+.r-bas { bottom: 0; border-top: 1px solid rgba(232,17,45,.5); }
+.r-scan {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: var(--rouge); box-shadow: 0 0 18px rgba(232,17,45,.9);
+  will-change: transform; opacity: 0;
+}
+.r-centre {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+  color: var(--blanc);
+}
+.r-marque { font-size: clamp(2rem, 7.5vw, 64px); font-weight: 600; letter-spacing: -.02em; display: flex; }
+.r-marque span { opacity: 0; }
+.r-point { color: var(--rouge); }
+.r-hud { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.r-niv { font-size: 15px; font-weight: 600; letter-spacing: .22em; font-variant-numeric: tabular-nums; color: rgba(255,255,255,.9); }
+.r-lab { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .18em; color: rgba(255,255,255,.45); }
+/* Fallback sans GSAP : le rideau s'ouvre tout seul en CSS (les lettres restent, l'ouverture passe) */
+body:not(.fx) .r-marque span { animation: r-lettre .01s .2s forwards; }
+body:not(.fx) .r-haut { animation: r-ouvre-haut .8s cubic-bezier(.77,0,.175,1) 2.6s forwards; }
+body:not(.fx) .r-bas { animation: r-ouvre-bas .8s cubic-bezier(.77,0,.175,1) 2.6s forwards; }
+body:not(.fx) .r-centre { animation: r-fondu .4s ease 2.3s forwards; }
+@keyframes r-lettre { to { opacity: 1; } }
+@keyframes r-ouvre-haut { to { transform: translateY(-102%); } }
+@keyframes r-ouvre-bas { to { transform: translateY(102%); } }
+@keyframes r-fondu { to { opacity: 0; } }
+.rideau.fini { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .rideau { display: none; }
+  .brume, .poussiere i { animation: none; }
+}
+
+/* ── HERO « le chantier des icônes » ──────────────────────────────── */
 .hero {
   position: relative; height: 100svh; overflow: hidden;
   margin-bottom: -25px;
   display: flex; flex-direction: column; justify-content: flex-end;
+  background: #0b0c10;
 }
-/* OBJET-HÉROS : la tour en 8 tranches (chaque tranche montre sa bande de la vraie photo).
-   Sans JS ou en reduced-motion : toutes les tranches sont en place = photo complète. */
-.chantier {
-  position: absolute; inset: 0; display: none;
+/* Couche 1 : ciel crépusculaire + brume rouge dérivante + grain */
+.ciel { position: absolute; inset: 0; overflow: hidden; }
+.ciel::before {
+  content: ""; position: absolute; inset: 0;
   background:
-    repeating-linear-gradient(0deg, rgba(232,17,45,.14) 0 1px, transparent 1px 12.5%),
-    repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 72px),
-    #101218;
+    radial-gradient(120% 70% at 50% 108%, rgba(232,17,45,.30), transparent 55%),
+    linear-gradient(180deg, #07080c 0%, #101218 46%, #1a1017 78%, #241016 100%);
 }
-body.fx .chantier { display: block; }
-.niveau {
-  position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
-  background: var(--rouge); box-shadow: 0 0 14px rgba(232,17,45,.85);
+.brume {
+  position: absolute; width: 72vw; height: 42vh; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(232,17,45,.20), transparent 70%);
+  filter: blur(28px); will-change: transform;
 }
-.tour { position: absolute; inset: 0; }
-.tranche {
-  position: absolute; left: 0; right: 0;
-  height: 12.5%; top: calc(var(--i) * 12.5%);
-  overflow: hidden; will-change: transform;
+.b1 { left: -18vw; bottom: 6vh; animation: derive1 17s ease-in-out infinite alternate; }
+.b2 { right: -22vw; bottom: 18vh; animation: derive2 23s ease-in-out infinite alternate; }
+@keyframes derive1 { from { transform: translate3d(0,0,0); } to { transform: translate3d(11vw,-5vh,0) scale(1.15); } }
+@keyframes derive2 { from { transform: translate3d(0,0,0) scale(1.1); } to { transform: translate3d(-9vw,4vh,0); } }
+.grain {
+  position: absolute; inset: -60px; opacity: .5; pointer-events: none;
+  background-image: repeating-conic-gradient(rgba(255,255,255,.014) 0% .0001%, transparent .0002% .0004%);
 }
-.tranche img {
-  position: absolute; left: 0; top: 0;
-  width: 100%; height: 800%; object-fit: cover;
-  transform: translateY(calc(var(--i) / 8 * -100%));
+/* Couche 2 : le monde 3D (perspective) et la ville de monolithes */
+.monde { position: absolute; inset: 0; perspective: 950px; }
+.ville {
+  position: absolute; inset: 0;
+  transform-style: preserve-3d; will-change: transform;
 }
-.hero-voile { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.5)); }
+.halo {
+  position: absolute; left: 50%; bottom: 27%; width: 96vw; height: 22vh;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(232,17,45,.5), rgba(232,17,45,.12) 55%, transparent 75%);
+  filter: blur(14px);
+}
+.mono {
+  position: absolute; bottom: 22%;
+  will-change: transform; transform-style: preserve-3d;
+}
+.mono img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  border-radius: 10px 10px 0 0;
+  box-shadow:
+    -18px 0 34px rgba(0,0,0,.55),
+    inset 0 0 0 1px rgba(255,255,255,.14);
+  filter: saturate(.92) contrast(1.05);
+}
+/* Arête gauche « bâtiment » : fine face sombre qui vend la 3D */
+.mono::before {
+  content: ""; position: absolute; top: 0; bottom: 0; left: -10px; width: 10px;
+  background: linear-gradient(180deg, #1d0509, #3a0a12);
+  transform: skewY(-6deg); transform-origin: right;
+  border-radius: 3px 0 0 0;
+}
+.mono .reflet {
+  position: absolute; top: 100%; left: 0; right: 0; height: 46%;
+  background-size: cover; background-position: center top;
+  transform: scaleY(-1); opacity: .28;
+  -webkit-mask-image: linear-gradient(0deg, transparent 15%, #000 100%);
+  mask-image: linear-gradient(0deg, transparent 15%, #000 100%);
+  filter: blur(1.5px) saturate(.8);
+  border-radius: 10px 10px 0 0;
+}
+.mono figcaption {
+  position: absolute; left: 12px; bottom: 10px; z-index: 2;
+  font-size: 10.5px; font-weight: 600; line-height: 1.35;
+  text-transform: uppercase; letter-spacing: .14em; color: rgba(255,255,255,.88);
+  text-shadow: 0 2px 10px rgba(0,0,0,.8);
+}
+.m-c { left: 50%; width: min(34vw, 240px); height: 44svh; margin-left: min(-17vw, -120px); bottom: 36%; transform: translateZ(70px); z-index: 3; }
+.m-g { left: 3%; width: min(27vw, 185px); height: 35svh; bottom: 33%; transform: translateZ(-60px); z-index: 2; }
+.m-d { right: 3%; width: min(27vw, 185px); height: 39svh; bottom: 39%; transform: translateZ(-100px); z-index: 2; }
+/* Tours lointaines : petites, sombres, floutées = profondeur de skyline */
+.m-loin { z-index: 1; opacity: .55; }
+.m-loin img { filter: brightness(.5) saturate(.6) blur(1.2px); }
+.m-l1 { left: 26%; width: min(16vw, 110px); height: 26svh; bottom: 42%; transform: translateZ(-170px); }
+.m-l2 { right: 27%; width: min(15vw, 100px); height: 23svh; bottom: 44%; transform: translateZ(-190px); }
+@media (min-width: 760px) {
+  .m-c { height: 52svh; }
+  .m-g { left: 13%; } .m-d { right: 13%; }
+  .m-l1 { left: 33%; } .m-l2 { right: 34%; }
+}
+/* Couche 3 : poussières lumineuses en avant-plan */
+.poussiere { position: absolute; inset: 0; pointer-events: none; z-index: 4; will-change: transform; }
+.poussiere i {
+  position: absolute; width: 3px; height: 3px; border-radius: 50%;
+  background: rgba(255,214,220,.85); box-shadow: 0 0 8px rgba(232,17,45,.8);
+  animation: flotte var(--d, 9s) ease-in-out var(--dl, 0s) infinite alternate;
+  opacity: .7;
+}
+.poussiere i:nth-child(1) { left: 8%; top: 64%; --d: 8s; }
+.poussiere i:nth-child(2) { left: 18%; top: 42%; --d: 11s; --dl: -3s; width: 2px; height: 2px; }
+.poussiere i:nth-child(3) { left: 30%; top: 74%; --d: 9s; --dl: -6s; }
+.poussiere i:nth-child(4) { left: 44%; top: 36%; --d: 12s; --dl: -2s; width: 2px; height: 2px; }
+.poussiere i:nth-child(5) { left: 55%; top: 66%; --d: 8.5s; --dl: -5s; }
+.poussiere i:nth-child(6) { left: 66%; top: 48%; --d: 10s; --dl: -1s; width: 2px; height: 2px; }
+.poussiere i:nth-child(7) { left: 76%; top: 70%; --d: 9.5s; --dl: -7s; }
+.poussiere i:nth-child(8) { left: 86%; top: 40%; --d: 11.5s; --dl: -4s; width: 2px; height: 2px; }
+.poussiere i:nth-child(9) { left: 38%; top: 56%; --d: 10.5s; --dl: -8s; width: 2px; height: 2px; }
+.poussiere i:nth-child(10) { left: 92%; top: 58%; --d: 9s; --dl: -2.5s; }
+@keyframes flotte {
+  from { transform: translate3d(0, 0, 0); opacity: .35; }
+  50% { opacity: .85; }
+  to { transform: translate3d(14px, -46px, 0); opacity: .3; }
+}
+.hero-voile { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.1), rgba(0,0,0,.42) 82%); pointer-events: none; }
 /* HUD de chantier : données soudées à la montée de la tour */
 .hud {
   position: absolute; top: 100px; z-index: 3;
