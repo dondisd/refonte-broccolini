@@ -86,7 +86,7 @@ body {
   color: var(--blanc);
 }
 .r-marque { font-size: clamp(2rem, 7.5vw, 64px); font-weight: 600; letter-spacing: -.02em; display: flex; }
-.r-marque span { opacity: 0; }
+/* Lettres visibles par défaut (= LCP au premier écran) ; le mode fx les éteint puis les rallume une à une */
 .r-point { color: var(--rouge); }
 .r-hud { display: flex; flex-direction: column; align-items: center; gap: 4px; }
 .r-niv { font-size: 15px; font-weight: 600; letter-spacing: .22em; font-variant-numeric: tabular-nums; color: rgba(255,255,255,.9); }

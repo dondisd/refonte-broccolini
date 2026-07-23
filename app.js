@@ -41,6 +41,7 @@
     const nivState = { v: 0 };
     const monolithes = ['.m-l1', '.m-l2', '.m-g', '.m-d', '.m-c'];
 
+    gsap.set('.r-marque span', { opacity: 0 });
     gsap.set(monolithes, { yPercent: 118, opacity: 0 });
     gsap.set('.halo', { opacity: 0, scale: 0.6 });
     gsap.set(['.hero-bas h1', '.sous-titre', '.hero-boutons', '.hud'], { opacity: 0, y: 26 });
