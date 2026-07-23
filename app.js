@@ -42,13 +42,14 @@
     const monolithes = ['.m-l1', '.m-l2', '.m-g', '.m-d', '.m-c'];
 
     gsap.set('.r-marque span', { opacity: 0 });
-    gsap.set(monolithes, { yPercent: 118, opacity: 0 });
-    gsap.set('.halo', { opacity: 0, scale: 0.6 });
-    gsap.set(['.hero-bas h1', '.sous-titre', '.hero-boutons', '.hud'], { opacity: 0, y: 26 });
-    gsap.set('.ville', { scale: 1.16, rotationX: 7, transformOrigin: '50% 78%' });
-
+    /* Le hero reste PEINT sous le rideau opaque (LCP précoce) ; il n'est masqué
+       qu'un instant avant l'ouverture des panneaux, pour jouer sa montée. */
     const ouverture = gsap.timeline();
     ouverture
+      .set(monolithes, { yPercent: 118, opacity: 0 }, 2.1)
+      .set('.halo', { opacity: 0, scale: 0.6 }, 2.1)
+      .set(['.hero-bas h1', '.sous-titre', '.hero-boutons', '.hud'], { opacity: 0, y: 26 }, 2.1)
+      .set('.ville', { scale: 1.16, rotationX: 7, transformOrigin: '50% 78%' }, 2.1)
       .to('.r-marque span', { opacity: 1, duration: 0.06, stagger: 0.055, ease: 'none' }, 0.15)
       .fromTo('.r-scan', { yPercent: 0, opacity: 1 }, {
         yPercent: () => -innerHeight, opacity: 1, duration: 1.5, ease: 'power1.inOut'
